@@ -34,7 +34,7 @@ http.createServer(function(req, res){
 				res.write(pageBanner);
 				res.write(pageBody);
 				res.write("\n\t<p>Täna on " + dateEt.weekDay() + " " + dateEt.longDate() + ".</p><p>Kahjuks tänaseks ühtki vanasõna välja pakkuda pole!</p>");
-				res.writw('<p>Vaata valikut <a href="/vanasonad">vanasõnadest</a>.</p>');
+				res.write('<p>Vaata valikut <a href="/vanasonad">vanasõnadest</a>.</p>');
 				res.write(pageEnd);
 				return res.end();
 			} else {
@@ -55,7 +55,21 @@ http.createServer(function(req, res){
 			}
 		});
 	}
-	
+	else if(currentUrl.pathname === "/hobid"){
+	res.writeHead(200, {"Content-type": "text/html"});
+	res.write(pageBegin);
+	res.write(pageBanner);
+	res.write(pageBody);
+	res.write("\n\t<h2>Minu hobid</h2>");
+	res.write('<ul>');
+	res.write('<li><a href="https://www.goodreads.com/">Raamatud ja lugemine</a></li>');
+	res.write('<li><a href="https://www.strava.com/">Jooksmine ja sport</a></li>');
+	res.write('</ul>');
+	res.write('<img src="hobid.jpg" alt="Minu hobiga seotud pilt" style="max-width:400px;">');
+	res.write(pageEnd);
+	return res.end();
+}
+
 	else id(currentUrl.pathname === "/vp_banner_2025_ID.jpg"){
 		//liidame muidu veebiserverile kättesaamatu kataloogi "images" meie veebi failiteega
 		let bannerPath = path.join(__dirname, "images");
@@ -73,4 +87,5 @@ http.createServer(function(req, res){
 	else {
 		res.end("Viga 404, ei leia sellist veebilehte");
 	}
+
 }).listen(5223);
